@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <head>
-	<title>My Site</title>
+<title>My Site</title>
 </head>
 <body>
+<form id="NewFormCaptureTest" name="NewFormCaptureTest" action="http://analytics-au.clickdimensions.com/forms/h/aBsByHOE6SkuS4E0KHmhZo" method="post" target="_blank">
+Email: <input type="email" name="txtEmail" id="txtEmail" /><br />
+Name: <input type="text" name="txtName" id="txtName"/><br />
+Phone: <input type="text" name="txtPhone" id="txtPhone"/><br />
 
-<p>Tracking script below this</p>
-<script type="text/javascript" src="https://analytics-eu.clickdimensions.com/ts.js" > </script>
+<input type="submit" value="Submit">
+</form> 
+
+<script type="text/javascript" src="https://analytics-au.clickdimensions.com/ts.js" > </script>
 
 <script type="text/javascript">
-  var cdAnalytics = new clickdimensions.Analytics('analytics-eu.clickdimensions.com');
-  cdAnalytics.setAccountKey('ajPD2GwEyfkKrDigmgoTEv');
-  cdAnalytics.setDomain('jaketcd.github.io');
+  var cdAnalytics = new clickdimensions.Analytics('analytics-au.clickdimensions.com');
+  cdAnalytics.setAccountKey('ac5p51SP0ihiOPmnnTzOw');
+  cdAnalytics.setDomain('clickdimensions.com');
   cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore));
   cdAnalytics.trackPage();
 </script>
