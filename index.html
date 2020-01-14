@@ -3,15 +3,15 @@
 <title>My Site</title>
 </head>
 <body>
-<p>The tracking script is below this</p>
-<script type="text/javascript" src="https://analytics.clickdimensions.com/ts.js" > </script> 
-
-<script type="text/javascript"> 
-  var cdAnalytics = new clickdimensions.Analytics('analytics.clickdimensions.com'); 
-  cdAnalytics.setAccountKey('ajvPP5rJUyRL8vBldFPmA'); 
-  cdAnalytics.setDomain('jaketcd.github.io'); 
-  cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore)); 
-  cdAnalytics.trackPage(); 
-</script> 
+<form action="" method="post">
+	<fieldset>
+		<label><span class="text-form">Name</span><input name="txtName" type="text" /></label>
+		<label><span class="text-form">Email</span><input name="txtEmail" type="email" /></label>
+		<label><span class="text-form">Phone</span><input name="txtPhone" type="text" /></label>
+		<div class="buttons">
+			<button type="submit" value="Send">Send</button>
+		</div>
+	</fieldset>
+</form>
 </body>
 </html>
