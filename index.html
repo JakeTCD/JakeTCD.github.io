@@ -3,25 +3,48 @@
 <title>My Site</title>
 </head>
 <body>
-<form action="https://analytics-au.clickdimensions.com/forms/h/aBsByHOE6SkuS4E0KHmhZo
-" method="post">
-	<fieldset>
-		<label><span class="text-form">Name</span><input name="txtName" type="text" /></label>
-		<label><span class="text-form">Email</span><input name="txtEmail" type="email" /></label>
-		<label><span class="text-form">Phone</span><input name="txtPhone" type="text" /></label>
-		<div class="buttons">
-			<button type="submit" value="Send">Send</button>
-		</div>
-	</fieldset>
-</form>
-<script type="text/javascript" src="https://analytics-au.clickdimensions.com/ts.js" > </script> 
-
-<script type="text/javascript"> 
-  var cdAnalytics = new clickdimensions.Analytics('analytics-au.clickdimensions.com'); 
-  cdAnalytics.setAccountKey('ac5p51SP0ihiOPmnnTzOw'); 
-  cdAnalytics.setDomain('jaketcd.github.io'); 
-  cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore)); 
-  cdAnalytics.trackPage(); 
-</script> 
+<form action="https://analytics-eu.clickdimensions.com/forms/h/aZzosGAWAnk2lBvzHTMH4t" method="post">	
+		salutationcode:<br>
+		<select name="salutationcode">
+			<option value="Ms">Ms.</option>
+			<option value="Mr">Mr.</option>
+		</select><br>
+		titelcode:<br>
+		<select name="titelcode">
+			<option value="Dr">Dr.</option>
+			<option value="Prof">Prof.</option>
+		</select><br>
+		firstname:<br>
+		<input type="text" name="firstname" value="Benjamin"><br>
+		lastname:<br>
+		<input type="text" name="lastname" value="John"><br>
+		emailadress:<br>
+		<input type="email" name="emailadress" value="ben@orbis.de"><br>
+		telephone:<br>
+		<input type="text" name="telephone" value="+49 681 9924963"><br>
+		languagecode:<br>
+		<select name="languagecode">
+			<option value="DE">DE - Deutsch</option>
+		</select><br>
+		companyname:<br>
+		<input type="text" name="companyname" value="ORBIS AG"><br>
+		erpaccountnumber:<br>
+		<input type="text" name="erpaccountnumber" value="55555"><br>
+		fax:<br>
+		<input type="text" name="fax" value="+49 681 9924999"><br>
+		address_street:<br>
+		<input type="text" name="address_street" value="Nell-Breuning-Allee"><br>
+		address_houseno:<br>
+		<input type="text" name="address_houseno" value="3-5"><br>
+		postalcode:<br>
+		<input type="text" name="postalcode" value="66115"><br>
+		city:<br>
+		<input type="text" name="city" value="3-5"><br>
+		countrycode:<br>
+		<select name="country_code">
+			<option value="DE">DE - Deutschland</option>
+		</select><br>
+		<input type="submit" value="Submit">
+	</form>
 </body>
 </html>
