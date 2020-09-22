@@ -2,21 +2,17 @@
 <head>
 <title>My Site</title>
 <body>
-<script type="text/javascript" src="https://analytics.clickdimensions.com/ts.js"></script>
-    <script type="text/javascript" src="https://analytics.clickdimensions.com/optout.js"></script>
+<script type="text/javascript" src="https://analytics.clickdimensions.com/ts.js" > </script>
+<script type="text/javascript" src="https://analytics.clickdimensions.com/optout.js" > </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var cdAnalytics = new clickdimensions.Analytics('analytics.clickdimensions.com');
-            cdAnalytics.setAccountKey('ayN3IXKP306aSVPBFfJl7Q');
-            cdAnalytics.setDomain('kingindustries.com');
-            cdAnalytics.setScore(typeof (cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore));
-            cdAnalytics.trackPage();
-
-            var optOutHostId = 'kingindustriescom_Q7lJfFBPVSa603PKXI3Nya';
-            cdAnalytics.optOutTracking(true);
-        });
-    </script>
+<script type="text/javascript">
+  var cdAnalytics = new clickdimensions.Analytics('analytics.clickdimensions.com');
+  cdAnalytics.setAccountKey('ayN3IXKP306aSVPBFfJl7Q');
+  cdAnalytics.setDomain('jaketcd.github.io');
+  cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore));
+  var optOutHostId = 'jaketcdgithubio_Q7lJfFBPVSa603PKXI3Nya';
+  cdAnalytics.optOutTracking(true);
+</script>
 </body>
 </html>
 
