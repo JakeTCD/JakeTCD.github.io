@@ -2,9 +2,17 @@
 <head>
 <title>My Site</title>
 <body>
-<script type="text/javascript">var loc = "https://analytics.clickdimensions.com/promegacom-ae1u1/pages/";</script>
-<script type="text/javascript" src="https://cdn-us.clickdimensions.com/web/v10/CDWidget.js"></script>
-<div pageID="wiyqhowqeeuoeganopny0g"></div>
+
+Tracking script below here
+<script type="text/javascript" src="https://analytics.clickdimensions.com/ts.js" > </script>
+
+<script type="text/javascript">
+  var cdAnalytics = new clickdimensions.Analytics('analytics.clickdimensions.com');
+  cdAnalytics.setAccountKey('aqtFSMsUkeUSsWqckHgwQ');
+  cdAnalytics.setDomain('jaketcd.github.io');
+  cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore));
+  cdAnalytics.trackPage();
+</script>
 </body>
 </html>
 
