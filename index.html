@@ -4,6 +4,9 @@
 <div pageID="pyikjlxee27owaiscntlw"></div>
 Lead score script test
 
+<script type="text/javascript">
+  var cdScore = 15;
+</script>
 <script type="text/javascript" src="https://analytics.clickdimensions.com/ts.js" > </script>
 
 <script type="text/javascript">
@@ -12,9 +15,5 @@ Lead score script test
   cdAnalytics.setDomain('jaketcd.github.io');
   cdAnalytics.setScore(typeof(cdScore) == "undefined" ? 0 : (cdScore == 0 ? null : cdScore));
   cdAnalytics.trackPage();
-</script>
-
-<script type="text/javascript">
-  var cdScore = 15;
 </script>
 </html>
