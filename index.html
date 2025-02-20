@@ -1,5 +1,23 @@
 <!DOCTYPE html>
-<script type="text/javascript">var loc = "https://analytics.clickdimensions.com/ipexnacom-aemyz/pages/";var cdSurveyCdn = "https://cdn-us.clickdimensions.com/web/newformeditor/";</script>
-<script type="text/javascript" src="https://cdn-us.clickdimensions.com/web/newformeditor/CDWidget.js"></script>
-<div pageID="2eammii1s0w5nhfxousl2g"></div>
+<title>Jake's Page</title>
+
+<form name=jake_form action="https://analytics.clickdimensions.com/forms/h/anNeVxzkwqk6zoBPxpeJBg" method="post">
+  <label for="fname">*First name:</label><br>
+  <input type="text" id="firstname" name="firstname" value="John" required><br>
+  <label for="lname">*Last name:</label><br>
+  <input type="text" id="lastname" name="lastname" value="Doe" required><br><br>
+  <label for="email">*Email:</label><br>
+  <input type="email" id="email" name="email" value="john.doe@email.com" required><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>$('#jake_form input[required]').on('input propertychange paste change', function() {
+
+  var empty = $('#jake_form').find('input[required]').filter(function() {
+    return this.value == '';
+  });
+
+  $('#submit').prop('disabled', (empty.length));
+
+});</script>
 </html>
