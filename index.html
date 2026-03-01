@@ -1,23 +1,16 @@
 <!DOCTYPE html>
+
 <title>Jake's Page</title>
 
-<form name=jake_form action="https://analytics.clickdimensions.com/forms/h/anNeVxzkwqk6zoBPxpeJBg" method="post">
-  <label for="fname">*First name:</label><br>
-  <input type="text" id="firstname" name="firstname" value="John" required><br>
-  <label for="lname">*Last name:</label><br>
-  <input type="text" id="lastname" name="lastname" value="Doe" required><br><br>
-  <label for="email">*Email:</label><br>
-  <input type="email" id="email" name="email" value="john.doe@email.com" required><br><br>
-  <input type="submit" value="Submit">
-</form>
+<body>
+<iframe src="https://analytics.clickdimensions.com/clickdimensionscom-ajvpp/pages/dspvhj7efgebganok8bsw.html" allowtransparency="true" width="100%" height="500px" type="text/html" frameborder="0" style="border:0"></iframe>
 
-<script>$('#jake_form input[required]').on('input propertychange paste change', function() {
-
-  var empty = $('#jake_form').find('input[required]').filter(function() {
-    return this.value == '';
-  });
-
-  $('#submit').prop('disabled', (empty.length));
-
-});</script>
+<script>window.addEventListener("message", function(event) {
+    if (event.data === "formSuccess") {
+        window.open("https://yoursite.com/file.pdf", "_blank");
+    }
+});
+</script>
+</body>
 </html>
+
