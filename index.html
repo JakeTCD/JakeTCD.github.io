@@ -1,16 +1,670 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wardstone Security — Home Alarm Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171c22;
+    --panel:#1e2530;
+    --panel-2:#262f3d;
+    --line:#374253;
+    --paper:#eef1f0;
+    --paper-dim:#c7cdd4;
+    --armed:#e8a33d;
+    --secure:#3ddc97;
+    --secure-dim: rgba(61,220,151,0.15);
+    --armed-dim: rgba(232,163,61,0.15);
+    --radius:3px;
+  }
 
-<title>Jake's Page</title>
+  *{box-sizing:border-box;margin:0;padding:0;}
 
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--secure);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(23,28,34,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:16px;
+    letter-spacing:0.02em;
+  }
+  .logo .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--secure);
+    box-shadow:0 0 0 4px var(--secure-dim);
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:32px;
+    font-size:14px;
+  }
+  nav ul a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    transition:color .15s ease;
+  }
+  nav ul a:hover{color:var(--paper);}
+  .nav-cta{
+    display:none;
+  }
+  @media(min-width:720px){
+    .nav-cta{display:inline-flex;}
+  }
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.03em;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background:var(--secure);
+    color:#0d1712;
+    border-color:var(--secure);
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#33c586;}
+  .btn-ghost{color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--paper-dim);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:88px 0 96px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media(min-width:900px){
+    .hero-grid{grid-template-columns:1.05fr 0.95fr;}
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--secure);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--secure);
+  }
+  h1{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:clamp(32px,4.4vw,52px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+    margin-bottom:22px;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--secure);
+  }
+  .hero p.lede{
+    font-size:17px;
+    color:var(--paper-dim);
+    max-width:46ch;
+    margin-bottom:34px;
+  }
+  .hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--paper-dim);
+    flex-wrap:wrap;
+  }
+  .hero-meta strong{
+    color:var(--paper);
+    display:block;
+    font-size:20px;
+    font-weight:600;
+  }
+
+  /* ---------- Panel (signature element) ---------- */
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 20px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+  .panel-status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .panel-status .led{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--armed);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 var(--armed-dim);}
+    50%{box-shadow:0 0 0 6px transparent;}
+  }
+  .panel-body{
+    padding:28px 20px;
+  }
+  .status-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--paper-dim);
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .status-line:last-of-type{border-bottom:none;}
+  .status-line .val{color:var(--paper);}
+  .status-line .val.on{color:var(--secure);}
+  .status-line .val.warn{color:var(--armed);}
+
+  .keypad{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+  .key{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:12px 0;
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    color:var(--paper-dim);
+  }
+  .key.arm{
+    grid-column:span 3;
+    background:var(--secure);
+    color:#0d1712;
+    border-color:var(--secure);
+    font-weight:600;
+    letter-spacing:0.06em;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .key.arm:hover{background:#33c586;}
+
+  /* ---------- Sections ---------- */
+  section{
+    padding:88px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head{
+    max-width:56ch;
+    margin-bottom:52px;
+  }
+  .section-head .eyebrow{margin-bottom:14px;}
+  h2{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:clamp(24px,3vw,34px);
+    letter-spacing:-0.01em;
+    margin-bottom:14px;
+  }
+  .section-head p{
+    color:var(--paper-dim);
+    font-size:16px;
+  }
+
+  /* Coverage / features grid */
+  .grid-3{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media(min-width:720px){
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+  }
+  .feat{
+    background:var(--ink);
+    padding:32px 28px;
+  }
+  .feat .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--secure);
+    margin-bottom:16px;
+    display:block;
+  }
+  .feat h3{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .feat p{
+    color:var(--paper-dim);
+    font-size:14.5px;
+  }
+
+  /* Plans */
+  .plans{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  @media(min-width:820px){
+    .plans{grid-template-columns:repeat(3,1fr);}
+  }
+  .plan{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:30px 26px;
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .plan.featured{
+    border-color:var(--secure);
+    background:linear-gradient(180deg, rgba(61,220,151,0.06), var(--panel));
+    position:relative;
+  }
+  .plan.featured::before{
+    content:"MOST DEPLOYED";
+    position:absolute;
+    top:-11px;
+    left:26px;
+    background:var(--secure);
+    color:#0d1712;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    font-weight:600;
+    padding:4px 8px;
+    border-radius:3px;
+  }
+  .plan-name{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--paper-dim);
+    margin-bottom:10px;
+  }
+  .plan-price{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:34px;
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .plan-price span{
+    font-size:13px;
+    color:var(--paper-dim);
+    font-weight:400;
+  }
+  .plan ul{
+    list-style:none;
+    margin:22px 0 26px;
+    flex-grow:1;
+  }
+  .plan li{
+    font-size:14px;
+    color:var(--paper-dim);
+    padding:8px 0;
+    border-top:1px dashed var(--line);
+    display:flex;
+    gap:10px;
+  }
+  .plan li:first-child{border-top:none;}
+  .plan li::before{
+    content:"–";
+    color:var(--secure);
+  }
+
+  /* Coverage map strip */
+  .coverage{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .coverage div{
+    flex:1 1 140px;
+    padding:20px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .coverage div:last-child{border-right:none;}
+  .coverage .c-label{color:var(--paper-dim);display:block;margin-bottom:6px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;}
+  .coverage .c-val{color:var(--secure);font-size:20px;font-weight:600;}
+
+  /* FAQ */
+  .faq-item{
+    border-top:1px solid var(--line);
+    padding:22px 0;
+  }
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item h3{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .faq-item p{
+    color:var(--paper-dim);
+    font-size:14.5px;
+    max-width:64ch;
+  }
+
+  /* Footer */
+  footer{
+    padding:48px 0;
+  }
+  .foot-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:24px;
+    align-items:center;
+  }
+  .foot-grid .logo{font-size:14px;}
+  footer p{
+    color:var(--paper-dim);
+    font-size:13px;
+  }
+
+  .final-cta{
+    text-align:center;
+  }
+  .final-cta h2{margin-bottom:16px;}
+  .final-cta p{
+    color:var(--paper-dim);
+    max-width:50ch;
+    margin:0 auto 34px;
+  }
+  .final-cta .hero-actions{justify-content:center;}
+</style>
+</head>
 <body>
-<iframe src="https://analytics.clickdimensions.com/clickdimensionscom-ajvpp/pages/dspvhj7efgebganok8bsw.html" allowtransparency="true" width="100%" height="500px" type="text/html" frameborder="0" style="border:0"></iframe>
 
-<script>window.addEventListener("message", function(event) {
-    if (event.data === "formSuccess") {
-        window.open("https://yoursite.com/file.pdf", "_blank");
-    }
-});
-</script>
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="dot" aria-hidden="true"></span> WARDSTONE</div>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#coverage">Coverage</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a href="#plans" class="btn btn-primary nav-cta">Get protected</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="border-bottom:1px solid var(--line);padding-top:88px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">24/7 monitored alarm systems</div>
+        <h1>Every door,<br>window, and worry —<br><em>watched.</em></h1>
+        <p class="lede">Wardstone installs and monitors home alarm systems built around one idea: the fastest response is the one that starts before you've noticed anything's wrong.</p>
+        <div class="hero-actions">
+          <a href="#plans" class="btn btn-primary">Get protected →</a>
+          <a href="#coverage" class="btn btn-ghost">See coverage areas</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>90s</strong>avg. dispatch trigger</div>
+          <div><strong>340+</strong>towns monitored</div>
+          <div><strong>11 yrs</strong>in continuous service</div>
+        </div>
+      </div>
+
+      <div class="panel" aria-label="Sample alarm control panel">
+        <div class="panel-head">
+          <span>WARDSTONE UNIT — FRONT HALL</span>
+          <span class="panel-status"><span class="led" aria-hidden="true"></span> ARMED</span>
+        </div>
+        <div class="panel-body">
+          <div class="status-line"><span>Front door</span><span class="val on">Secure</span></div>
+          <div class="status-line"><span>Back door</span><span class="val on">Secure</span></div>
+          <div class="status-line"><span>Kitchen window</span><span class="val on">Secure</span></div>
+          <div class="status-line"><span>Motion — hallway</span><span class="val warn">Standby</span></div>
+          <div class="status-line"><span>Signal strength</span><span class="val">Cellular · Strong</span></div>
+          <div class="status-line"><span>Battery backup</span><span class="val on">98%</span></div>
+          <div class="keypad">
+            <div class="key">1</div><div class="key">2</div><div class="key">3</div>
+            <div class="key">4</div><div class="key">5</div><div class="key">6</div>
+            <div class="key">7</div><div class="key">8</div><div class="key">9</div>
+            <div class="key arm">DISARM SYSTEM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="coverage">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">How it works</div>
+        <h2>Three parts, one system.</h2>
+        <p>Hardware, a monitoring station, and a dispatch relationship with local responders. Most alarm companies sell you one of these well. Wardstone builds all three together.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="feat">
+          <span class="num">SENSORS</span>
+          <h3>Entry, motion &amp; glass-break</h3>
+          <p>Contact sensors on every door and window, motion coverage for shared rooms, and acoustic glass-break detection — all wireless, all battery-backed for up to 3 years.</p>
+        </div>
+        <div class="feat">
+          <span class="num">MONITORING</span>
+          <h3>A person, not a queue</h3>
+          <p>Alarms route to a staffed monitoring floor, not a call center script. Operators verify what triggered before anyone's woken up or a truck is sent.</p>
+        </div>
+        <div class="feat">
+          <span class="num">DISPATCH</span>
+          <h3>Local response relationships</h3>
+          <p>We maintain direct lines with police and fire dispatch in every county we cover, which is why our average verified-alarm response beats the national average.</p>
+        </div>
+      </div>
+
+      <div style="height:40px;"></div>
+
+      <div class="coverage">
+        <div><span class="c-label">Coverage</span><span class="c-val">340+ towns</span></div>
+        <div><span class="c-label">Install time</span><span class="c-val">Same week</span></div>
+        <div><span class="c-label">Contract</span><span class="c-val">Month-to-month</span></div>
+        <div><span class="c-label">Backup power</span><span class="c-val">30 hr</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plans">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Plans</div>
+        <h2>Pick a level of watching.</h2>
+        <p>All plans include professional installation and cellular backup — no landline required, nothing routed over your home Wi-Fi alone.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan">
+          <div class="plan-name">Perimeter</div>
+          <div class="plan-price">$24<span>/mo</span></div>
+          <ul>
+            <li>Door &amp; window sensors</li>
+            <li>24/7 professional monitoring</li>
+            <li>Mobile app control</li>
+            <li>Cellular backup connection</li>
+          </ul>
+          <a href="#" class="btn btn-ghost">Choose Perimeter</a>
+        </div>
+
+        <div class="plan featured">
+          <div class="plan-name">Full Watch</div>
+          <div class="plan-price">$39<span>/mo</span></div>
+          <ul>
+            <li>Everything in Perimeter</li>
+            <li>Motion &amp; glass-break sensors</li>
+            <li>Smoke &amp; CO monitoring</li>
+            <li>Live video on 2 entry points</li>
+            <li>Priority dispatch routing</li>
+          </ul>
+          <a href="#" class="btn btn-primary">Choose Full Watch</a>
+        </div>
+
+        <div class="plan">
+          <div class="plan-name">Estate</div>
+          <div class="plan-price">$68<span>/mo</span></div>
+          <ul>
+            <li>Everything in Full Watch</li>
+            <li>Unlimited camera coverage</li>
+            <li>Detached structure monitoring</li>
+            <li>Quarterly on-site system check</li>
+          </ul>
+          <a href="#" class="btn btn-ghost">Choose Estate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Questions</div>
+        <h2>Before you call.</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>What happens when a sensor triggers?</h3>
+          <p>A signal reaches our monitoring floor in under 5 seconds. An operator attempts to reach you first — if there's no answer or you confirm an emergency, dispatch is contacted immediately.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do I need to sign a long contract?</h3>
+          <p>No. Every Wardstone plan runs month-to-month. Equipment is yours to keep even if you cancel monitoring later.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Will it work if my power or internet goes out?</h3>
+          <p>Yes. Every panel has a 30-hour battery backup and communicates over cellular by default, independent of your home Wi-Fi.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I self-install?</h3>
+          <p>Most customers choose professional install (included free on Full Watch and Estate), but self-install kits ship within 2 business days for Perimeter plans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="eyebrow" style="justify-content:center;">Ready when you are</div>
+      <h2>Talk to a Wardstone advisor now.</h2>
+      <p>Use the assistant in the corner of this page to check coverage in your area, compare plans, or book an install window — no phone call required.</p>
+      <div class="hero-actions">
+        <a href="#plans" class="btn btn-primary">Get protected →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="logo"><span class="dot" aria-hidden="true"></span> WARDSTONE SECURITY</div>
+    <p>© 2026 Wardstone Security. A fictional company created for demonstration purposes.</p>
+  </div>
+</footer>
+
+<!-- Wardstone AI Assistant -->
+<script async src="https://raiabot.raia2.com/assets/raia-chatbot-widget.js" data-api-key="a898df72-2fc0-44b7-bc6d-2da14ee45cce"></script>
+
 </body>
 </html>
-
